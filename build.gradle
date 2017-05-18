@@ -1,2 +1,26 @@
+plugins {
+    id 'de.dfki.mary.voicebuilding-legacy' version '5.2.1'
+}
+
 group 'de.dfki.mary'
 version '0.1.0-SNAPSHOT'
+
+repositories {
+    maven {
+        url 'https://oss.jfrog.org/artifactory/oss-snapshot-local/'
+    }
+}
+
+voice {
+    name = 'amu-waldek'
+    gender = 'male'
+    language = 'pl'
+}
+
+configurations.all {
+    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+        if (details.requested.name == 'groovy-all') {
+            details.useTarget group: details.requested.group, name: details.requested.name, version: '2.4.10'
+        }
+    }
+}
