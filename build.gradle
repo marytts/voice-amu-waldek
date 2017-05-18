@@ -24,3 +24,13 @@ configurations.all {
         }
     }
 }
+
+task data(type: Copy) {
+    from 'src'
+    into buildDir
+    include 'lab/*.lab',
+            'wav/*.wav',
+            'text/*.txt'
+    fileMode = 0644
+    legacyInit.dependsOn it
+}
