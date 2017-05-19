@@ -9,6 +9,21 @@ repositories {
     maven {
         url 'https://oss.jfrog.org/artifactory/oss-snapshot-local/'
     }
+    repositories {
+        ['cloudark', 'localhost'].each { host ->
+            maven {
+                credentials {
+                    username findProperty('cloudarkUser')
+                    password findProperty('cloudarkApiKey')
+                }
+                url "http://$host:8081/artifactory/local/"
+            }
+        }
+    }
+}
+
+dependencies {
+    data group: 'pl.speechlabs.bachan', name: 'amu-waldek-data', version: '0.1.0-SNAPSHOT', ext: 'zip'
 }
 
 voice {
@@ -26,6 +41,11 @@ configurations.all {
             details.useTarget group: details.requested.group, name: details.requested.name, version: '0.1.0-SNAPSHOT'
         }
     }
+}
+
+task downloadData(type: Copy) {
+    from configurations.data
+    into buildDir
 }
 
 task data(type: Copy) {
