@@ -49,11 +49,12 @@ task downloadData(type: Copy) {
 }
 
 task data(type: Copy) {
-    from 'src'
+    dependsOn downloadData
+    from zipTree("$buildDir/amu-waldek-data-0.1.0-SNAPSHOT.zip")
     into buildDir
-    include 'lab/*.lab',
-            'wav/*.wav',
-            'text/*.txt'
+    exclude '**/A0099.*',
+            '**/A0274.*',
+            '**/B0081.*'
     fileMode = 0644
     legacyInit.dependsOn it
 }
