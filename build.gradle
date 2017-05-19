@@ -22,6 +22,9 @@ configurations.all {
         if (details.requested.name == 'groovy-all') {
             details.useTarget group: details.requested.group, name: details.requested.name, version: '2.4.10'
         }
+        if (details.requested.name == 'marytts-lang-pl') {
+            details.useTarget group: details.requested.group, name: details.requested.name, version: '0.1.0-SNAPSHOT'
+        }
     }
 }
 
